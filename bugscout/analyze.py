@@ -73,15 +73,11 @@ def _module_dir(path, marker):
     return str(p)
 
 
-def analyze_rust(path):
-    """cargo clippy --message-format=json → high-signal correctness/suspicious findings."""
+def parse_clippy(stdout):
+    """Parse `cargo clippy --message-format=json` output into high-signal findings.
+    Pure function (no subprocess) so it is unit-testable."""
     findings = []
-    r = run(["cargo", "clippy", "--message-format=json", "--quiet",
-             "--", "-W", "clippy::correctness", "-W", "clippy::suspicious"],
-            cwd=path, timeout=1200)
-    if r is None:
-        return findings
-    for line in r.stdout.splitlines():
+    for line in stdout.splitlines():
         line = line.strip()
         if not line.startswith("{"):
             continue
@@ -118,15 +114,20 @@ def analyze_rust(path):
     return findings
 
 
-def analyze_go(path):
-    """go vet ./... (JSON) → real correctness diagnostics."""
-    findings = []
-    r = run(["go", "vet", "-json", "./..."], cwd=path, timeout=900)
+def analyze_rust(path):
+    """Run clippy in `path` and parse. Returns high-signal findings."""
+    r = run(["cargo", "clippy", "--message-format=json", "--quiet",
+             "--", "-W", "clippy::correctness", "-W", "clippy::suspicious"],
+            cwd=path, timeout=1200)
     if r is None:
-        return findings
-    # go vet -json prints a JSON object per package on stderr
-    buf = r.stderr
-    # it emits concatenated JSON objects; parse leniently
+        return []
+    return parse_clippy(r.stdout)
+
+
+def parse_go_vet(buf):
+    """Parse `go vet -json` output (concatenated JSON objects) into findings.
+    Pure function (no subprocess) so it is unit-testable."""
+    findings = []
     dec = json.JSONDecoder()
     i = 0
     s = buf.strip()
@@ -163,6 +164,14 @@ def analyze_go(path):
                         "message": d.get("message", "").strip(),
                     })
     return findings
+
+
+def analyze_go(path):
+    """Run `go vet -json` in `path` and parse. Returns findings."""
+    r = run(["go", "vet", "-json", "./..."], cwd=path, timeout=900)
+    if r is None:
+        return []
+    return parse_go_vet(r.stderr)
 
 
 def analyze_repo(full_name):
