@@ -76,3 +76,20 @@ class TestGoVetParser(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestPmdParser(unittest.TestCase):
+    def test_parses_violations(self):
+        import json as _j
+        from scour.analyze import parse_pmd
+        out = _j.dumps({"files": [{"filename": "/r/src/A.java", "violations": [
+            {"beginline": 12, "rule": "CloseResource", "description": "Ensure that resources are closed"}]}]})
+        f = parse_pmd(out)
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0]["rule"], "pmd:CloseResource")
+        self.assertEqual(f[0]["category"], "errorprone")
+        self.assertEqual(f[0]["line"], 12)
+
+    def test_empty(self):
+        from scour.analyze import parse_pmd
+        self.assertEqual(parse_pmd(""), [])

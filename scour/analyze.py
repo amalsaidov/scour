@@ -59,7 +59,67 @@ def detect_lang(path):
     for depth_glob in ("*/go.mod", "*/*/go.mod"):
         if any(p.glob(depth_glob)):
             return "go"
+    # Java: a build file, or any .java source anywhere
+    for marker in ("pom.xml", "build.gradle", "build.gradle.kts", "settings.gradle"):
+        if (p / marker).exists() or any(p.glob(f"*/{marker}")):
+            return "java"
+    try:
+        next(p.rglob("*.java"))
+        return "java"
+    except StopIteration:
+        pass
     return None
+
+
+def _pmd_bin():
+    """Locate the PMD executable: PATH, then ~/tools, then $PMD_HOME."""
+    import shutil
+    found = shutil.which("pmd")
+    if found:
+        return found
+    for base in (Path.home() / "tools", Path("/opt"), Path.home() / ".local"):
+        for c in base.glob("pmd-bin*/**/bin/pmd"):
+            return str(c)
+        for c in base.glob("**/pmd-bin-*/bin/pmd"):
+            return str(c)
+    env = os.environ.get("PMD_HOME")
+    if env and (Path(env) / "bin" / "pmd").exists():
+        return str(Path(env) / "bin" / "pmd")
+    return None
+
+
+def parse_pmd(stdout):
+    """Parse `pmd check -f json` output into high-signal findings. Pure, unit-testable."""
+    findings = []
+    try:
+        data = json.loads(stdout)
+    except (json.JSONDecodeError, TypeError):
+        return findings
+    for fileobj in data.get("files", []):
+        fname = fileobj.get("filename", "")
+        for v in fileobj.get("violations", []):
+            rule = v.get("rule", "")
+            findings.append({
+                "file": fname,
+                "line": v.get("beginline", 0),
+                "rule": f"pmd:{rule}",
+                "category": "errorprone",
+                "severity": 8,
+                "message": (v.get("description") or "").strip(),
+            })
+    return findings
+
+
+def analyze_java(path):
+    """Run PMD's error-prone ruleset over Java sources (no build needed) and parse."""
+    pmd = _pmd_bin()
+    if not pmd:
+        return []
+    r = run([pmd, "check", "-d", path, "-R", "category/java/errorprone.xml",
+             "-f", "json", "--no-progress", "--no-cache"], timeout=1200)
+    if r is None or not r.stdout.strip():
+        return []
+    return parse_pmd(r.stdout)
 
 
 def _module_dir(path, marker):
@@ -189,6 +249,8 @@ def analyze_repo(full_name):
         findings = analyze_rust(_module_dir(dest, "Cargo.toml"))
     elif lang == "go":
         findings = analyze_go(_module_dir(dest, "go.mod"))
+    elif lang == "java":
+        findings = analyze_java(dest)
     else:
         return sha, [], lang, "unsupported-lang", tmp
     return sha, findings, lang, None, tmp

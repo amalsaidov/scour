@@ -170,6 +170,36 @@ def cmd_run(args):
     cmd_report(argparse.Namespace(limit=args.limit))
 
 
+def cmd_grow(args):
+    """Grow the target list: discover popular repos across languages and append new ones.
+    Run it repeatedly to keep the list expanding (metadata lives in SQLite)."""
+    from pathlib import Path
+    con = db.connect()
+    target_file = Path(args.file)
+    existing = set()
+    if target_file.is_file():
+        existing = {l.strip() for l in target_file.read_text(encoding="utf-8").splitlines()
+                    if l.strip() and not l.strip().startswith("#")}
+    langs = args.langs or ["java", "rust", "go", "python", "typescript", "kotlin", "c", "cpp"]
+    added = []
+    for lang in langs:
+        for full, stars, pushed in gh.discover_repos(lang, args.min_stars, args.pushed_after, args.per_lang):
+            if full in existing or full in STOPLIST:
+                continue
+            existing.add(full)
+            added.append(full)
+            db.upsert_repo(con, full, lang=lang, stars=stars, pushed_at=pushed)
+    if added:
+        target_file.parent.mkdir(parents=True, exist_ok=True)
+        with target_file.open("a", encoding="utf-8") as f:
+            for r in added:
+                f.write(r + "\n")
+        # keep the file sorted & unique
+        lines = sorted(set(l.strip() for l in target_file.read_text(encoding="utf-8").splitlines() if l.strip()))
+        target_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"grew target list by {len(added)} repos → {target_file} now has {len(existing)} total")
+
+
 def cmd_seed(args):
     """Register target repos in the DB (no analysis), from --from-file / --config."""
     con = db.connect()
@@ -215,6 +245,14 @@ def main(argv=None):
     rn.add_argument("--check-policy", action="store_true")
     rn.add_argument("--limit", type=int, default=20)
     rn.set_defaults(func=cmd_run)
+
+    g = sub.add_parser("grow", help="discover popular repos across languages and append to the target list")
+    g.add_argument("--file", default="targets/our-targets.txt")
+    g.add_argument("--langs", nargs="*", default=None)
+    g.add_argument("--min-stars", type=int, default=500)
+    g.add_argument("--pushed-after", default="2025-06-01")
+    g.add_argument("--per-lang", type=int, default=30)
+    g.set_defaults(func=cmd_grow)
 
     sd = sub.add_parser("seed", help="register target repos in the DB (no analysis)")
     sd.add_argument("repos", nargs="*")
