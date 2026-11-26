@@ -176,7 +176,7 @@ def analyze_go(path):
 
 def analyze_repo(full_name):
     """Clone + analyze. Always returns (commit_sha, findings, lang, error, tmp)."""
-    tmp = tempfile.mkdtemp(prefix="bugscout-")
+    tmp = tempfile.mkdtemp(prefix="scour-")
     dest = os.path.join(tmp, "repo")
     if not shallow_clone(full_name, dest):
         return None, [], None, "clone-failed", tmp

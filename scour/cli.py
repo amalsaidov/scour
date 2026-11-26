@@ -1,4 +1,4 @@
-"""bugscout CLI — deterministic OSS bug-candidate finder. LLM is OFF by default (0 tokens)."""
+"""scour CLI — deterministic OSS bug-candidate finder. LLM is OFF by default (0 tokens)."""
 import argparse
 import re
 import sys
@@ -103,7 +103,7 @@ def cmd_report(args):
 def cmd_stats(args):
     con = db.connect()
     s = db.stats(con)
-    print("bugscout state:")
+    print("scour state:")
     for k, v in s.items():
         print(f"  {k:<16} {v}")
     if not s["llm_real"]:
@@ -135,7 +135,7 @@ def cmd_run(args):
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="bugscout", description="Deterministic OSS bug-candidate finder (LLM optional).")
+    p = argparse.ArgumentParser(prog="scour", description="Deterministic OSS bug-candidate finder (LLM optional).")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     d = sub.add_parser("discover", help="find active popular repos via GitHub API")

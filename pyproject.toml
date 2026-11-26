@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bugscout"
+name = "scour"
 version = "0.1.0"
 description = "Deterministic, token-minimal finder of bug-candidates in open-source repos."
 readme = "README.md"
@@ -20,11 +20,11 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/amalsaidov/bugscout"
-Issues = "https://github.com/amalsaidov/bugscout/issues"
+Homepage = "https://github.com/amalsaidov/scour"
+Issues = "https://github.com/amalsaidov/scour/issues"
 
 [project.scripts]
-bugscout = "bugscout.cli:main"
+scour = "scour.cli:main"
 
 [tool.setuptools]
-packages = ["bugscout"]
+packages = ["scour"]

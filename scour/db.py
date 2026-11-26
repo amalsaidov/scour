@@ -1,9 +1,9 @@
-"""SQLite persistence for bugscout. Remembers repos, commits and findings so work is never repeated."""
+"""SQLite persistence for scour. Remembers repos, commits and findings so work is never repeated."""
 import sqlite3
 import time
 from pathlib import Path
 
-DB_PATH = Path.home() / "bugscout" / "bugscout.db"
+DB_PATH = Path.home() / "scour" / "scour.db"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS repos (

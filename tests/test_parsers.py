@@ -2,7 +2,7 @@
 import json
 import unittest
 
-from bugscout.analyze import parse_clippy, parse_go_vet
+from scour.analyze import parse_clippy, parse_go_vet
 
 
 def _clippy_line(lint, msg, file, line, level="warning"):

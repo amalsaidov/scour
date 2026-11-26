@@ -51,7 +51,7 @@ def ai_policy(full_name):
         for branch in ("main", "master"):
             url = f"https://raw.githubusercontent.com/{full_name}/{branch}/{fname}"
             try:
-                req = urllib.request.Request(url, headers={"User-Agent": "bugscout"})
+                req = urllib.request.Request(url, headers={"User-Agent": "scour"})
                 with urllib.request.urlopen(req, timeout=15) as r:
                     if r.status != 200:
                         continue

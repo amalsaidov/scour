@@ -1,6 +1,6 @@
-# Contributing to bugscout
+# Contributing to scour
 
-Thanks for your interest! bugscout aims to stay small, deterministic and dependency‑free.
+Thanks for your interest! scour aims to stay small, deterministic and dependency‑free.
 
 ## Principles
 
@@ -13,13 +13,13 @@ Thanks for your interest! bugscout aims to stay small, deterministic and depende
 ## Development
 
 ```bash
-git clone https://github.com/amalsaidov/bugscout
-cd bugscout
+git clone https://github.com/amalsaidov/scour
+cd scour
 pip install -e .
 python -m unittest discover -s tests -v
 ```
 
-The analyzer parsers (`parse_clippy`, `parse_go_vet` in `bugscout/analyze.py`) are pure functions
+The analyzer parsers (`parse_clippy`, `parse_go_vet` in `scour/analyze.py`) are pure functions
 and fully unit‑tested — add fixtures there when you extend them.
 
 ## Adding a language / analyzer
