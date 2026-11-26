@@ -39,6 +39,25 @@ def _score(issue):
     return s
 
 
+def has_referencing_open_pr(repo, number):
+    """True if an OPEN PR already references this issue (so it's being worked on).
+    One search call — use only on the shortlist, not every issue."""
+    cmd = ["gh", "pr", "list", "--repo", repo, "--state", "open",
+           "--search", str(number), "--json", "number,title,body", "--limit", "20"]
+    try:
+        out = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        if out.returncode != 0:
+            return False
+        prs = json.loads(out.stdout)
+    except (subprocess.TimeoutExpired, json.JSONDecodeError):
+        return False
+    needle = f"#{number}"
+    for pr in prs:
+        if needle in (pr.get("body") or "") or needle in (pr.get("title") or ""):
+            return True
+    return False
+
+
 def unclaimed_issues(repo, per_repo=30):
     """Return open, UNassigned issues (not PRs) for a repo, scored. []
     on error. 'Unclaimed' = no assignee (cheap, deterministic signal)."""

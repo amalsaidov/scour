@@ -225,6 +225,17 @@ def cmd_issues(args):
         if i % 20 == 0:
             print(f"  ...scanned {i}/{len(repos)} repos, {total} new free tasks", flush=True)
     print(f"collected {total} new free (unclaimed) tasks from {len(repos)} repos in {_t.time()-t0:.0f}s")
+    if args.verify:
+        # drop tasks that already have an OPEN referencing PR — check only the top shortlist (cheap).
+        claimed = 0
+        for r in db.top_issues(con, args.verify):
+            if issuesmod.has_referencing_open_pr(r["repo"], r["number"]):
+                con.execute("UPDATE task_issues SET status='picked' WHERE repo=? AND number=?",
+                            (r["repo"], r["number"]))
+                claimed += 1
+        con.commit()
+        if claimed:
+            print(f"verify: dropped {claimed} tasks that already have an open PR")
     _report_issues(con, args.limit)
 
 
@@ -308,6 +319,8 @@ def main(argv=None):
     iss.add_argument("--config", nargs="?", const="", help="scour.toml with targets")
     iss.add_argument("--max-repos", type=int, default=60, help="scan at most N repos this run")
     iss.add_argument("--per-repo", type=int, default=30)
+    iss.add_argument("--verify", type=int, default=40, nargs="?", const=40,
+                     help="check the top N tasks for an existing open PR and drop claimed ones (0=off)")
     iss.add_argument("--limit", type=int, default=25, help="shortlist size to print")
     iss.set_defaults(func=cmd_issues)
 
