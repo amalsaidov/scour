@@ -88,8 +88,37 @@ def _pmd_bin():
     return None
 
 
+# PMD rules that indicate a GENUINE bug (not style/maintainability). Curated allowlist so
+# Java findings stay high-precision, like the clippy-correctness filter for Rust.
+PMD_BUG_RULES = {
+    "CloseResource", "CompareObjectsWithEquals", "UseEqualsToCompareStrings",
+    "BrokenNullCheck", "MisplacedNullCheck", "UnusedNullCheckInEquals",
+    "EmptyCatchBlock", "EmptyIfStmt", "EmptyWhileStmt", "EmptyFinallyBlock",
+    "EmptySynchronizedBlock", "EmptyStatementNotInLoop", "EmptyTryBlock",
+    "ReturnFromFinallyBlock", "UnconditionalIfStatement", "JumbledIncrementer",
+    "DontCallThreadRun", "DoubleCheckedLocking", "AvoidCallingFinalize",
+    "FinalizeDoesNotCallSuperFinalize", "FinalizeOnlyCallsSuperFinalize",
+    "OverrideBothEqualsAndHashcode", "UselessOperationOnImmutable",
+    "ClassCastExceptionWithToArray", "AvoidDecimalLiteralsInBigDecimalConstructor",
+    "BigIntegerInstantiation", "CheckSkipResult", "DontUseFloatTypeForLoopIndices",
+    "BadComparison", "ComparisonWithNaN", "EqualsNull", "NonCaseLabelInSwitchStatement",
+    "SuspiciousEqualsMethodName", "SuspiciousHashcodeMethodName", "SuspiciousOctalEscape",
+    "UnnecessaryConversionTemporary", "InstantiationToGetClass", "IdempotentOperations",
+    "AvoidUsingOctalValues", "AvoidMultipleUnaryOperators", "AvoidAssertAsIdentifier",
+    "AvoidEnumAsIdentifier", "MisplacedNullCheck", "InvalidLogMessageFormat",
+    "MoreThanOneLogger", "AvoidBranchingStatementAsLastInLoop", "CheckResultSet",
+    "DoNotCallGarbageCollectionExplicitly", "DoNotExtendJavaLangThrowable",
+    "DoNotThrowExceptionInFinally", "AvoidLosingExceptionInformation",
+    "UseLocaleWithCaseConversions", "UselessOperationOnImmutable",
+    "ProperCloneImplementation", "CloneMethodMustImplementCloneable",
+    "CloneMethodReturnTypeMustMatchClassName", "ArrayIsStoredDirectly",
+    "MethodReturnsInternalArray", "ConstructorCallsOverridableMethod",
+}
+
+
 def parse_pmd(stdout):
-    """Parse `pmd check -f json` output into high-signal findings. Pure, unit-testable."""
+    """Parse `pmd check -f json` into high-signal findings, keeping only genuine-bug rules.
+    Pure, unit-testable."""
     findings = []
     try:
         data = json.loads(stdout)
@@ -99,6 +128,8 @@ def parse_pmd(stdout):
         fname = fileobj.get("filename", "")
         for v in fileobj.get("violations", []):
             rule = v.get("rule", "")
+            if rule not in PMD_BUG_RULES:
+                continue  # drop style/maintainability noise — keep precision high
             findings.append({
                 "file": fname,
                 "line": v.get("beginline", 0),
@@ -115,7 +146,8 @@ def analyze_java(path):
     pmd = _pmd_bin()
     if not pmd:
         return []
-    r = run([pmd, "check", "-d", path, "-R", "category/java/errorprone.xml",
+    r = run([pmd, "check", "-d", path,
+             "-R", "category/java/errorprone.xml,category/java/multithreading.xml",
              "-f", "json", "--no-progress", "--no-cache"], timeout=1200)
     if r is None or not r.stdout.strip():
         return []

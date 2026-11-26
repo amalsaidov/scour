@@ -93,3 +93,15 @@ class TestPmdParser(unittest.TestCase):
     def test_empty(self):
         from scour.analyze import parse_pmd
         self.assertEqual(parse_pmd(""), [])
+
+
+class TestPmdPrecision(unittest.TestCase):
+    def test_drops_style_rule(self):
+        import json as _j
+        from scour.analyze import parse_pmd
+        out = _j.dumps({"files":[{"filename":"A.java","violations":[
+            {"beginline":1,"rule":"AvoidLiteralsInIfCondition","description":"style"},
+            {"beginline":2,"rule":"CompareObjectsWithEquals","description":"bug: == on objects"}]}]})
+        f = parse_pmd(out)
+        self.assertEqual(len(f),1)
+        self.assertEqual(f[0]["rule"],"pmd:CompareObjectsWithEquals")
