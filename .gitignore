@@ -1,0 +1,19 @@
+# local analysis state — never commit
+bugscout.db
+*.db
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+# envs / editors
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+# transient clones / scratch
+ghwork/
+tmp/

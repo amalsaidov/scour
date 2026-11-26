@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bugscout"
+version = "0.1.0"
+description = "Deterministic, token-minimal finder of bug-candidates in open-source repos."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Amal Saidov" }]
+keywords = ["static-analysis", "clippy", "go-vet", "open-source", "contributions", "bug-finding"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Quality Assurance",
+]
+# No runtime Python dependencies — uses the system `gh`, `git`, `cargo`/`clippy`, `go` CLIs.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/amalsaidov/bugscout"
+Issues = "https://github.com/amalsaidov/bugscout/issues"
+
+[project.scripts]
+bugscout = "bugscout.cli:main"
+
+[tool.setuptools]
+packages = ["bugscout"]
