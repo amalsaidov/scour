@@ -33,6 +33,21 @@ CREATE TABLE IF NOT EXISTS findings (
 );
 CREATE INDEX IF NOT EXISTS idx_find_repo ON findings(repo);
 CREATE INDEX IF NOT EXISTS idx_find_rank ON findings(dedup, severity);
+CREATE TABLE IF NOT EXISTS task_issues (
+    repo        TEXT,
+    number      INTEGER,
+    title       TEXT,
+    url         TEXT,
+    labels      TEXT,
+    comments    INTEGER,
+    reactions   INTEGER,
+    created_at  TEXT,
+    score       INTEGER,
+    status      TEXT DEFAULT 'free',   -- free | picked | done
+    seen_at     REAL,
+    UNIQUE(repo, number)
+);
+CREATE INDEX IF NOT EXISTS idx_task_rank ON task_issues(status, score);
 """
 
 
@@ -104,6 +119,30 @@ def candidates(con, limit=20):
     return con.execute(
         """SELECT * FROM findings WHERE dedup='clean'
            ORDER BY severity DESC, id ASC LIMIT ?""",
+        (limit,),
+    ).fetchall()
+
+
+def add_issue(con, iss):
+    try:
+        con.execute(
+            """INSERT INTO task_issues(repo,number,title,url,labels,comments,reactions,created_at,score,seen_at)
+               VALUES(?,?,?,?,?,?,?,?,?,?)
+               ON CONFLICT(repo,number) DO UPDATE SET
+                 title=excluded.title, labels=excluded.labels, comments=excluded.comments,
+                 reactions=excluded.reactions, score=excluded.score, seen_at=excluded.seen_at""",
+            (iss["repo"], iss["number"], iss["title"], iss["url"], iss["labels"],
+             iss["comments"], iss["reactions"], iss["created_at"], iss["score"], time.time()),
+        )
+        con.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+
+
+def top_issues(con, limit=25):
+    return con.execute(
+        "SELECT * FROM task_issues WHERE status='free' ORDER BY score DESC, reactions DESC, number ASC LIMIT ?",
         (limit,),
     ).fetchall()
 

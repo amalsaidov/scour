@@ -105,3 +105,11 @@ class TestPmdPrecision(unittest.TestCase):
         f = parse_pmd(out)
         self.assertEqual(len(f),1)
         self.assertEqual(f[0]["rule"],"pmd:CompareObjectsWithEquals")
+
+
+class TestIssuePrefilter(unittest.TestCase):
+    def test_score_and_unclaimed(self):
+        from scour.issues import _score
+        bug = {"labels":[{"name":"type: bug"}],"reactions":{"+1":2},"comments":0}
+        enh = {"labels":[{"name":"enhancement"}],"reactions":{"+1":0},"comments":10}
+        self.assertGreater(_score(bug), _score(enh))

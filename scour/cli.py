@@ -4,7 +4,7 @@ import re
 import sys
 import time
 
-from . import db, gh, analyze, config as cfgmod
+from . import db, gh, analyze, issues as issuesmod, config as cfgmod
 
 STOPLIST = set()  # repos already contributed to / banned (populate from your campaign)
 
@@ -200,6 +200,54 @@ def cmd_grow(args):
     print(f"grew target list by {len(added)} repos → {target_file} now has {len(existing)} total")
 
 
+def cmd_issues(args):
+    """PREFILTER: collect open, UNCLAIMED issues (tasks) from target repos, rank, report.
+    The LLM only works the shortlist this produces. Deterministic, 0 tokens."""
+    con = db.connect()
+    repos = list(getattr(args, "repos", None) or []) or _targets_from(args)
+    if not repos:
+        # fall back to DB targets
+        repos = [r["full_name"] for r in con.execute("SELECT full_name FROM repos").fetchall()]
+    if args.max_repos:
+        import random
+        random.shuffle(repos)
+        repos = repos[: args.max_repos]
+    import time as _t
+    t0 = _t.time()
+    total = 0
+    for i, repo in enumerate(repos, 1):
+        if repo in STOPLIST:
+            continue
+        found = issuesmod.unclaimed_issues(repo, per_repo=args.per_repo)
+        for iss in found:
+            if db.add_issue(con, iss):
+                total += 1
+        if i % 20 == 0:
+            print(f"  ...scanned {i}/{len(repos)} repos, {total} new free tasks", flush=True)
+    print(f"collected {total} new free (unclaimed) tasks from {len(repos)} repos in {_t.time()-t0:.0f}s")
+    _report_issues(con, args.limit)
+
+
+def _report_issues(con, limit):
+    rows = db.top_issues(con, limit)
+    if not rows:
+        print("no free tasks yet — run `scour issues --config scour.toml`")
+        return
+    print(f"\nTOP {len(rows)} FREE (unclaimed) TASKS — pick, solve, PR:")
+    print(f"{'SCORE':>5}  {'REPO':<30} {'#':>6}  TITLE  [labels]")
+    print("-" * 110)
+    for r in rows:
+        labs = f"  [{r['labels']}]" if r["labels"] else ""
+        print(f"{r['score']:>5}  {r['repo']:<30} {r['number']:>6}  {r['title'][:70]}{labs}")
+        print(f"       {r['url']}")
+
+
+def cmd_tasks(args):
+    """Just print the current ranked free-task shortlist from the DB."""
+    con = db.connect()
+    _report_issues(con, args.limit)
+
+
 def cmd_seed(args):
     """Register target repos in the DB (no analysis), from --from-file / --config."""
     con = db.connect()
@@ -253,6 +301,19 @@ def main(argv=None):
     g.add_argument("--pushed-after", default="2025-06-01")
     g.add_argument("--per-lang", type=int, default=30)
     g.set_defaults(func=cmd_grow)
+
+    iss = sub.add_parser("issues", help="PREFILTER: collect open unclaimed tasks from targets, ranked")
+    iss.add_argument("repos", nargs="*")
+    iss.add_argument("--from-file", help="file with one owner/repo per line")
+    iss.add_argument("--config", nargs="?", const="", help="scour.toml with targets")
+    iss.add_argument("--max-repos", type=int, default=60, help="scan at most N repos this run")
+    iss.add_argument("--per-repo", type=int, default=30)
+    iss.add_argument("--limit", type=int, default=25, help="shortlist size to print")
+    iss.set_defaults(func=cmd_issues)
+
+    tk = sub.add_parser("tasks", help="print the current ranked free-task shortlist")
+    tk.add_argument("--limit", type=int, default=25)
+    tk.set_defaults(func=cmd_tasks)
 
     sd = sub.add_parser("seed", help="register target repos in the DB (no analysis)")
     sd.add_argument("repos", nargs="*")
