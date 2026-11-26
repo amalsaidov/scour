@@ -4,9 +4,33 @@ import re
 import sys
 import time
 
-from . import db, gh, analyze
+from . import db, gh, analyze, config as cfgmod
 
 STOPLIST = set()  # repos already contributed to / banned (populate from your campaign)
+
+
+def _targets_from(args):
+    """Resolve target repo names from --from-file and/or --config."""
+    names = []
+    fp = getattr(args, "from_file", None)
+    if fp:
+        from pathlib import Path
+        p = Path(fp)
+        if p.is_file():
+            names += [l.strip() for l in p.read_text(encoding="utf-8").splitlines()
+                      if l.strip() and not l.strip().startswith("#") and "/" in l]
+    cfgpath = getattr(args, "config", None)
+    if cfgpath is not None or not names:
+        cfg, used = cfgmod.load(cfgpath)
+        if used:
+            from pathlib import Path
+            names += cfgmod.load_targets(cfg, base_dir=str(Path(used).parent))
+    # de-dupe preserve order
+    seen, out = set(), []
+    for r in names:
+        if r not in seen and "/" in r:
+            seen.add(r); out.append(r)
+    return out
 
 
 def _keywords(f):
@@ -32,7 +56,11 @@ def cmd_analyze(args):
     con = db.connect()
     t0 = time.time()
     total_find = 0
-    for full in args.repos:
+    repos = list(getattr(args, "repos", None) or []) or _targets_from(args)
+    if not repos:
+        print("no repos given. pass names, --from-file FILE, or --config scour.toml")
+        return
+    for full in repos:
         if full in STOPLIST:
             print(f"skip {full}: stoplist")
             continue
@@ -113,7 +141,15 @@ def cmd_stats(args):
 def cmd_scan(args):
     """One shot: discover repos then analyze+dedup+report the top N."""
     con = db.connect()
-    repos = gh.discover_repos(args.lang, args.min_stars, args.pushed_after, args.limit)
+    lang, min_stars, pushed_after, limit = args.lang, args.min_stars, args.pushed_after, args.limit
+    if getattr(args, "config", None) is not None:
+        cfg, used = cfgmod.load(args.config)
+        if used:
+            disc = cfg["discover"]
+            langs = disc.get("langs") or [lang]
+            lang = langs[0]
+            min_stars, pushed_after, limit = disc["min_stars"], disc["pushed_after"], disc["limit"]
+    repos = gh.discover_repos(lang, min_stars, pushed_after, limit)
     names = [full for full, _s, _p in repos if full not in STOPLIST]
     for full, stars, pushed in repos:
         db.upsert_repo(con, full, lang=args.lang, stars=stars, pushed_at=pushed)
@@ -128,10 +164,23 @@ def cmd_scan(args):
 
 
 def cmd_run(args):
-    """Full deterministic pipeline on given repos (discover optional)."""
+    """Full deterministic pipeline on given repos (or --from-file / --config)."""
     cmd_analyze(args)
     cmd_dedup(args)
     cmd_report(argparse.Namespace(limit=args.limit))
+
+
+def cmd_seed(args):
+    """Register target repos in the DB (no analysis), from --from-file / --config."""
+    con = db.connect()
+    repos = list(getattr(args, "repos", None) or []) or _targets_from(args)
+    if not repos:
+        print("no targets. pass names, --from-file FILE, or --config scour.toml")
+        return
+    for full in repos:
+        owner = full.split("/")[0]
+        db.upsert_repo(con, full)
+    print(f"seeded {len(repos)} target repos into the DB (use `scour analyze --config ...` to analyze)")
 
 
 def main(argv=None):
@@ -146,7 +195,9 @@ def main(argv=None):
     d.set_defaults(func=cmd_discover)
 
     a = sub.add_parser("analyze", help="clone + static-analyze repos (incremental)")
-    a.add_argument("repos", nargs="+")
+    a.add_argument("repos", nargs="*")
+    a.add_argument("--from-file", help="file with one owner/repo per line")
+    a.add_argument("--config", nargs="?", const="", help="scour.toml with targets/filters")
     a.add_argument("--check-policy", action="store_true", help="skip repos whose AI policy forbids contributions")
     a.set_defaults(func=cmd_analyze)
 
@@ -158,10 +209,18 @@ def main(argv=None):
     r.set_defaults(func=cmd_report)
 
     rn = sub.add_parser("run", help="analyze + dedup + report in one go")
-    rn.add_argument("repos", nargs="+")
+    rn.add_argument("repos", nargs="*")
+    rn.add_argument("--from-file", help="file with one owner/repo per line")
+    rn.add_argument("--config", nargs="?", const="", help="scour.toml with targets/filters")
     rn.add_argument("--check-policy", action="store_true")
     rn.add_argument("--limit", type=int, default=20)
     rn.set_defaults(func=cmd_run)
+
+    sd = sub.add_parser("seed", help="register target repos in the DB (no analysis)")
+    sd.add_argument("repos", nargs="*")
+    sd.add_argument("--from-file", help="file with one owner/repo per line")
+    sd.add_argument("--config", nargs="?", const="", help="scour.toml with targets")
+    sd.set_defaults(func=cmd_seed)
 
     s = sub.add_parser("stats", help="show DB state + token usage")
     s.set_defaults(func=cmd_stats)
@@ -172,6 +231,7 @@ def main(argv=None):
     sc.add_argument("--pushed-after", default="2025-06-01")
     sc.add_argument("--limit", type=int, default=15)
     sc.add_argument("--check-policy", action="store_true")
+    sc.add_argument("--config", nargs="?", const="", help="scour.toml with discover filters")
     sc.set_defaults(func=cmd_scan)
 
     args = p.parse_args(argv)

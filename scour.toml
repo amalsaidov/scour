@@ -1,0 +1,22 @@
+# scour configuration — edit this to research whatever you want.
+# Run:  scour run --config scour.toml      (analyze your targets)
+#       scour scan --config scour.toml      (discover by filters, then analyze)
+#       scour seed --config scour.toml      (just register targets in the DB)
+
+[targets]
+# A curated set of repositories to research (owner/repo per line in the file).
+# This ships with our target universe (Obsidian targets + yegor256 & friends + amalsaidov).
+file = "targets/our-targets.txt"
+# You can also add individual repos inline:
+# list = ["torvalds/linux", "rust-lang/rust"]
+
+[discover]
+# Used by `scour scan` / `scour discover` when you want scour to find repos itself.
+langs = ["rust", "go"]
+min_stars = 300
+pushed_after = "2025-06-01"
+limit = 20
+
+[analysis]
+# Skip repositories whose AI_POLICY / AGENTS / CONTRIBUTING forbid AI contributions.
+check_policy = true

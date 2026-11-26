@@ -82,6 +82,36 @@ scour stats
 
 (Without `pip install`, run `python3 -m scour.cli <command>` from the repo root.)
 
+## Configuration — research whatever you want
+
+scour is **config‑driven**. A `scour.toml` points it at the repositories, languages and filters
+*you* care about, so everyone can use it to research their own targets:
+
+```toml
+[targets]
+file = "targets/our-targets.txt"     # one owner/repo per line
+# list = ["torvalds/linux", "rust-lang/rust"]   # or inline
+
+[discover]
+langs = ["rust", "go"]
+min_stars = 300
+pushed_after = "2025-06-01"
+limit = 20
+
+[analysis]
+check_policy = true
+```
+
+```bash
+scour seed    --config scour.toml   # register your target set in the DB
+scour run     --config scour.toml   # analyze your targets (+dedup +report)
+scour scan    --config scour.toml   # discover by [discover] filters, then analyze
+scour analyze --from-file my.txt    # or just point at a plain list file
+```
+
+The repo ships a starter target set in [`targets/our-targets.txt`](targets/our-targets.txt)
+(≈460 repos). Replace or extend it with your own.
+
 ## Output
 
 `report` prints ranked, de‑duplicated candidates:
