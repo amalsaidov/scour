@@ -1,5 +1,6 @@
 0xRadikal/Free-v2ray-Configs
 1Panel-dev/CordysCRM
+2dust/v2rayNG
 ASDAlexander77/TypeScriptCompiler
 Abilityai/trinity
 AlkaidLab/foundation-sunshine
@@ -10,6 +11,7 @@ Azure/azure-sdk-for-java
 BackplaneWorks/Backplane
 BerriAI/litellm
 BlackyHawky/Clock
+BloopAI/vibe-kanban
 BurntSushi/ripgrep
 BurntSushi/toml
 ByteDance-Seed/VeOmni
@@ -26,6 +28,7 @@ CovenantSQL/CovenantSQL
 CrossGL/crosstl
 CursorTouch/Windows-MCP
 Cygnux-Labs/Tracekit
+Cyletix/CyIME
 DIYgod/pinky
 DP-Hridayan/aShellYou
 DataDog/dd-trace-java
@@ -53,7 +56,10 @@ Graylog2/graylog2-server
 GreptimeTeam/greptimedb
 HIllya51/LunaTranslator
 HKUDS/LightRAG
+HKUDS/nanobot
+HakanSeven12/OpenCADStudio
 HandBrake/HandBrake
+Hannah2227/douyin-favorite-MyLike
 HelixDB/helix-foundry
 HolyArrs/HolyArrs
 Human-Agent-Society/reef
@@ -67,6 +73,8 @@ KDE/kdenlive
 KDE/kwin
 Ka1-S/LYNX-SHARE
 Koimsurai/Arke
+KonghaYao/cn-font-split
+Kototoro-app/Kototoro
 LSPosed/LSPrivilege
 LUC4N3X/Levyra-deepsound
 LadybirdBrowser/ladybird
@@ -98,12 +106,16 @@ NVIDIA/Megatron-LM
 NatronGitHub/Natron
 NiREvil/vless
 NihilDigit/piko
+Niko1221/Strata
 NousResearch/hermes-agent
 Numbersf/Action-Build
 NuvioMedia/NuvioTV
+OneKeyHQ/app-monorepo
 OpenAEV-Platform/openaev
 OpenVPN/openvpn
 OpenZeppelin/openzeppelin-contracts
+OrchestratorInc/agent-orchestrator
+PimpinPumpkin/Vela
 PipeWire/pipewire
 PostHog/posthog
 PostHog/posthog-foss
@@ -115,6 +127,7 @@ QwikDev/qwik
 R0Y00/Xbox2Windows
 RediSearch/RediSearch
 Rockbox/rockbox
+RsyncProject/rsync
 SerenityOS/serenity
 SethRobinson/Patchy
 ShiftHackZ/SDAI-KMP
@@ -123,13 +136,17 @@ Silo-Server/silo-server
 StarRocks/starrocks
 Stirling-Tools/Stirling-PDF
 Stremio/stremio-core
+SuanmoSuanyangTechnology/MemoryBear
 Supprise0901/TVBox_live
 Swayingleaves/novanova-studio
 SylphxAI/anymd
+TEN-framework/ten-vad
 THU-MAIC/OpenMAIC
 Tencent/BqLog
 Tencent/LoopForge
+TracecatHQ/tracecat
 UCSLabs/mailcraft
+UniClipboard/UniClipboard
 UsefulSoftwareCo/executor
 WeblateOrg/weblate
 Wei-Shaw/sub2api
@@ -144,11 +161,13 @@ acados/acados
 acepanel/panel
 adriadam10/mkw-recomp
 agent-of-empires/agent-of-empires
+agentscope-ai/agentscope
 agili-app/Awesome.Metrix.Bar
 ai-dynamo/dynamo
 aio-libs/aiohttp
 aklivity/zilla
 akto-api-security/akto
+alexsergivan/kwant
 alibaba/MNN
 alibaba/Sentinel
 alibaba/arthas
@@ -204,12 +223,15 @@ amalsaidov/template-studio
 androidx/androidx
 anefzaoui/misterdownloadmanager
 angular/angular
+anomalyco/hex
 anomalyco/opencode
 ansible/ansible
 anza-xyz/agave
 aovestdipaperino/tokensave
 apache/camel
 apache/cassandra
+apache/causeway
+apache/cloudberry
 apache/cxf
 apache/datafusion
 apache/doris
@@ -228,6 +250,7 @@ apache/pulsar
 apache/rocketmq
 apache/rocketmq-dashboard
 apache/seata
+apache/seatunnel
 apache/shardingsphere
 apache/superset
 argoproj/argo-cd
@@ -249,6 +272,7 @@ bitcoin/bitcoin
 bitfireAT/davx5-ose
 bitwarden/android
 blender/blender
+blogminhquy/javis-os
 bmad-code-org/BMAD-METHOD
 boykopovar/AnyPS5
 brave/brave-core
@@ -314,6 +338,7 @@ dandavison/delta
 danielealbano/android-remote-control-mcp
 dapr/dapr
 dart-lang/sdk
+dataease/dataease
 dataelement/bisheng
 datamodel-code-generator/datamodel-code-generator
 davidondrej/cloudroom
@@ -345,6 +370,7 @@ elizaOS/eliza
 elripalda/RecompLauncher
 encode/httpx
 envoyproxy/envoy
+erigontech/erigon
 esphome/esphome
 ethereum/go-ethereum
 ethereum/solidity
@@ -427,6 +453,7 @@ helloworld1/FreeOTPPlus
 helm/helm
 heygen-com/hyperframes
 himdo/Fable-2-Recomp
+home-assistant/core
 horizontalsystems/unstoppable-wallet-android
 horsicq/DIE-engine
 horsicq/XELFViewer
@@ -437,6 +464,7 @@ huggingface/transformers
 hyperledger/besu
 hyperledger/fabric
 iamr0s/Dhizuku
+iflytek/skillhub
 igawa6/peanuts-native
 ignatov/intellij-erlang
 illumos/illumos-gate
@@ -512,6 +540,7 @@ kubernetes/client-go
 kubernetes/kubernetes
 kubernetes/minikube
 kubescape/kubescape
+kubetail-org/kubetail
 kubevirt/kubevirt
 kunkundi/crossdesk
 kvcache-ai/Mooncake
@@ -524,10 +553,12 @@ lettuce-io/lettuce-core
 lexmount/moli
 libimobiledevice/idevicerestore
 libp2p/go-libp2p
+libracoder/kiri
 libuv/libuv
 lightninglabs/taproot-assets
 lihenggui/blocker
 lindera/lindera
+linuxmint/warpinator
 lipku/LiveTalking
 liquibase/liquibase
 lixiaoxiao9888-create/manju-laoli-skill
@@ -571,6 +602,7 @@ modrinth/code
 mongodb/mongo
 moq-dev/moq
 morluto/rea
+mpusz/mp-units
 mudler/LocalAI
 multica-ai/multica
 muratcankoylan/Agent-Skills-for-Context-Engineering
@@ -581,6 +613,7 @@ mybatis/spring
 mybatis/spring-boot-starter
 mysql/mysql-connector-j
 mysql/mysql-server
+n8n-io/n8n
 n8n-io/nod
 nano-muse/nanoMuse
 nautechsystems/nautilus_trader
@@ -644,6 +677,7 @@ open5gs/open5gs
 openai/codex
 openbsd/src
 openclaw/openclaw
+opencrabs/opencrabs
 opengeos/RustGIS
 openjdk/jdk
 openobserve/openobserve
@@ -698,6 +732,7 @@ ranxianglei/billion-context
 raullenchai/Rapid-MLX
 rawnaldclark/Stash
 rcourtman/Pulse
+realidkroo/Mochy-Music
 redhat-et/ripwire
 redis/jedis
 redis/redis
@@ -731,6 +766,7 @@ shirudo-dev/shirudo
 shy3130/tick-stock-panel
 simplexai-labs/linger
 smg-project/smg
+smontlouis/bible-strong-avatar-lab
 solana-labs/solana
 sonatype/docker-nexus3
 sonic-pi-net/sonic-pi
@@ -791,6 +827,7 @@ tianocore/edk2
 timoncool/YuE2-Studio
 tmux/tmux
 tokio-rs/axum
+tonaljs/tonal
 tonhowtf/omniget
 torvalds/linux
 traefik/traefik
@@ -822,17 +859,20 @@ wazuh/wazuh
 weaviate/weaviate
 web3j/web3j
 webpack/webpack
+wici-ai/inferssd
 wingedpanther/cleanmytv
 wingedpanther/openshelf
 wiredtiger/wiredtiger
 wireshark/wireshark
 wolfSSL/wolfssl
+wynter-yaxley/atrium-desktop
 xMasterX/all-the-plugins
 xchacha20-poly1305/husi
 xen-project/xen
 ximeiorg/Xime
 xroche/httrack
 yairm210/Unciv
+ydb-platform/ydb
 yegor256/0pdd
 yegor256/aggregate-repeated-test
 yegor256/always
@@ -1012,6 +1052,7 @@ zen-browser/desktop
 zephyrproject-rtos/zephyr
 zereight/gitlab-mcp
 zeroclaw-labs/zeroclaw
+zhouxiaoka/autoclip
 zly2006/zhihu-plus-plus
 zortos293/Lichii
 zxing/zxing
