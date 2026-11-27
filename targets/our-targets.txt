@@ -23,6 +23,7 @@ ClickHouse/ClickHouse
 Cloeille/picsou-finance
 CodeGoat24/UnifiedReward
 Comfy-Org/ComfyUI
+ComposioHQ/composio
 Conflux-Chain/conflux-rust
 CovenantSQL/CovenantSQL
 CrossGL/crosstl
@@ -32,9 +33,11 @@ Cyletix/CyIME
 DIYgod/pinky
 DP-Hridayan/aShellYou
 DataDog/dd-trace-java
+DependencyTrack/dependency-track
 DeusData/codebase-memory-mcp
 DioxusLabs/dioxus
 Docile-Alligator/Infinity-For-Reddit
+DoubleGhosty/cool_fox
 Droid-Deck/DroidDeck
 EchoMusicApp/Echo-Music
 Edge0-AI/Edge0
@@ -93,6 +96,7 @@ Luce-Org/lucebox
 MariaDB/server
 MetaMask/metamask-mobile
 MetrolistGroup/Metrolist
+MewX/light-novel-library_Wenku8_Android
 Minestom/Minestom
 ModelEngine-Group/nexent
 ModelTC/LightLLM
@@ -103,6 +107,7 @@ Mygod/VPNHotspot
 N3urda/hongguoTV
 NVIDIA-NeMo/Automodel
 NVIDIA/Megatron-LM
+NationalSecurityAgency/ghidra
 NatronGitHub/Natron
 NiREvil/vless
 NihilDigit/piko
@@ -119,6 +124,7 @@ PimpinPumpkin/Vela
 PipeWire/pipewire
 PostHog/posthog
 PostHog/posthog-foss
+PowerDNS/pdns
 PrefectHQ/fastmcp
 ProdigyV21/ARVIO
 Project-HAMi/HAMi
@@ -133,6 +139,7 @@ SethRobinson/Patchy
 ShiftHackZ/SDAI-KMP
 Significant-Gravitas/AutoGPT
 Silo-Server/silo-server
+SimplifyJobs/Summer2027-Internships
 StarRocks/starrocks
 Stirling-Tools/Stirling-PDF
 Stremio/stremio-core
@@ -253,6 +260,9 @@ apache/seata
 apache/seatunnel
 apache/shardingsphere
 apache/superset
+apptension/saas-boilerplate
+appwrite/appwrite
+ardia-browser/ardia
 argoproj/argo-cd
 argoproj/argo-workflows
 assistant-ui/assistant-ui
@@ -282,11 +292,13 @@ btcsuite/btcd
 bytechefhq/bytechef
 caddyserver/caddy
 camunda/camunda
+can1357/oh-my-pi
 carbon-design-system/carbon-components-svelte
 ccch1mneyyy/dsh-TUI
 charmbracelet/bubbletea
 cheaper-inference/OmniRoute
 chojs23/concord
+chrisbanes/haze
 clickhouse/clickhouse
 clidey/whodb
 cloudflare/agents
@@ -346,9 +358,11 @@ dbeaver/dbeaver
 debpalash/VoiceStudio
 derailed/k9s
 dgraph-io/dgraph
+digego/extempore
 digital-grease/fauxx
 dimensionalOS/dimos
 dingminhua/dsh-connect-workbuddy
+distr-sh/distr
 django/django
 docker/cli
 docker/compose
@@ -358,6 +372,7 @@ dream-num/univer
 duckdb/duckdb
 duckduckgo/Android
 dyoshikawa/rulesync
+eProsima/Fast-DDS
 earendil-works/pi
 egoist/kero
 egoist/mygo
@@ -421,6 +436,7 @@ gofiber/fiber
 gofr-dev/gofr
 goharbor/harbor
 gohugoio/hugo
+google-deepmind/mujoco
 google-gemini/gemini-api-cli
 google/adk-go
 google/angle
@@ -464,6 +480,7 @@ huggingface/transformers
 hyperledger/besu
 hyperledger/fabric
 iamr0s/Dhizuku
+ical4j/ical4j
 iflytek/skillhub
 igawa6/peanuts-native
 ignatov/intellij-erlang
@@ -479,6 +496,8 @@ islandmed/SculptForge
 istio/istio
 iterate-ch/cyberduck
 jamesmunns/postcard
+jamiepine/voicebox
+jangviktor-web/nihaixia
 jax-ml/jax
 jay3-yy/BiliPai
 jazzenchen/agent-hud-open
@@ -516,18 +535,22 @@ jcabi/jcabi-xml
 jenkinsci/configuration-as-code-plugin
 jesdga95/basalt
 jesseduffield/lazygit
+jj-vcs/jj
 jknack/handlebars.java
 jlcodes99/cockpit-tools
 jonataslaw/getx
 joncampbell123/dosbox-x
 jub0t/Concat
+juju/juju
 junegunn/fzf
+juspay/hyperswitch
 justjavac/weibo-trending-hot-search
 k3s-io/k3s
 karinushka/paneru
 kelai141/dsh-mobile-apk
 kenzok8/small-package
 keploy/keploy
+kerberos-io/agent
 kestra-io/kestra
 keycloak/keycloak
 kirodotdev/KiroCrew
@@ -549,6 +572,7 @@ langgenius/dify
 laravel/laravel
 laurent22/joplin
 lbjlaq/Antigravity-Manager
+lesovsky/pgcenter
 lettuce-io/lettuce-core
 lexmount/moli
 libimobiledevice/idevicerestore
@@ -563,6 +587,7 @@ lipku/LiveTalking
 liquibase/liquibase
 lixiaoxiao9888-create/manju-laoli-skill
 longbridge/nsh
+ls1intum/Artemis
 ltdrdata/ComfyUI-Impact-Pack
 lucee/Lucee
 lwindolf/liferea
@@ -573,6 +598,7 @@ mainplane-ai/mainplane
 makecindy/cindy
 managarm/managarm
 mangowm/mango
+marin-m/SongRec
 mastra-ai/mastra
 matrix-org/matrix-rust-sdk
 matrixorigin/matrixone
@@ -585,6 +611,7 @@ meizhong986/WhisperJAV
 meshery/meshery
 meshtastic/Meshtastic-Android
 metatube-community/metatube-sdk-go
+mg-chao/snow-shot
 mickael-kerjean/filestash
 micronaut-projects/micronaut-core
 microsoft/PowerToys
@@ -616,6 +643,7 @@ mysql/mysql-server
 n8n-io/n8n
 n8n-io/nod
 nano-muse/nanoMuse
+nats-io/nats-server
 nautechsystems/nautilus_trader
 near/nearcore
 neovim/neovim
@@ -624,6 +652,7 @@ netdata/netdata
 nextcloud/android
 nexu-io/openmotion
 nginx/kubernetes-ingress
+ngtcp2/ngtcp2
 nhost/nhost
 nightly-labs/openbot
 noctalia-dev/noctalia
@@ -667,6 +696,7 @@ odoo/odoo
 ogham/dog
 okou-ai/okou
 onekey-sec/unblob
+ongridio/ongrid
 onyx-dot-app/onyx
 open-gsd/gsd-pi
 open-policy-agent/opa
@@ -681,6 +711,7 @@ opencrabs/opencrabs
 opengeos/RustGIS
 openjdk/jdk
 openobserve/openobserve
+openremote/core
 openrewrite/rewrite
 opensetlabs/openset-llm
 openssl/openssl
@@ -690,9 +721,11 @@ openxla/xla
 organicmaps/organicmaps
 oshi/oshi
 osmosis-labs/osmosis
+oven-sh/bun
 oxc-project/oxc
 pallets/flask
 paritytech/polkadot-sdk
+pch/rawmakase
 pengchujin/aerial-tv
 percona/pmm
 perixtar/Tech-OA-Interview-Questions
@@ -717,6 +750,7 @@ prometheus/prometheus
 pulumi/pulumi
 pydantic/pydantic-ai
 pygame-community/pygame-ce
+python/cpython
 pytorch/pytorch
 qianyiai/KuroCat
 qier222/YesPlayMusic
@@ -737,10 +771,12 @@ redhat-et/ripwire
 redis/jedis
 redis/redis
 redox-os/redox
+remotion-dev/remotion
 repowise-dev/repowise
 reubeno/brush
 reylosql/reylo
 rizinorg/rizin
+rlaope/oh-my-hermes
 rnmapbox/maps
 robusta-dev/robusta
 root-project/root
@@ -799,6 +835,7 @@ strongtz/i915-sriov-dkms
 sun168567/cc-desk-tunnel
 sunlabuiuc/PyHealth
 supabase-community/postgres-language-server
+supabase/supabase
 superdesigndev/treg
 superplanehq/superplane
 sveltejs/svelte
@@ -834,6 +871,7 @@ traefik/traefik
 trezor/trezor-suite
 trycua/cua
 tsunehimatoi/psd2live
+tuya/TuyaOpen
 twentyhq/twenty
 uber-go/zap
 unslothai/unsloth
@@ -871,6 +909,7 @@ xchacha20-poly1305/husi
 xen-project/xen
 ximeiorg/Xime
 xroche/httrack
+xyc999-ai/go-bot
 yairm210/Unciv
 ydb-platform/ydb
 yegor256/0pdd
@@ -1048,6 +1087,7 @@ yegor256/zache
 yetone/magpie
 ytsaurus/ytsaurus
 yugabyte/yugabyte-db
+zama-ai/fhevm
 zen-browser/desktop
 zephyrproject-rtos/zephyr
 zereight/gitlab-mcp
