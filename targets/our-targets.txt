@@ -5,6 +5,7 @@ Abilityai/trinity
 AlkaidLab/foundation-sunshine
 Ampixa/sanoTTS
 Apicurio/apicurio-registry
+AstrBotDevs/AstrBot
 Azure/azure-sdk-for-java
 BackplaneWorks/Backplane
 BerriAI/litellm
@@ -21,6 +22,7 @@ Cloeille/picsou-finance
 CodeGoat24/UnifiedReward
 Comfy-Org/ComfyUI
 Conflux-Chain/conflux-rust
+CovenantSQL/CovenantSQL
 CrossGL/crosstl
 CursorTouch/Windows-MCP
 Cygnux-Labs/Tracekit
@@ -29,6 +31,7 @@ DP-Hridayan/aShellYou
 DataDog/dd-trace-java
 DeusData/codebase-memory-mcp
 DioxusLabs/dioxus
+Docile-Alligator/Infinity-For-Reddit
 Droid-Deck/DroidDeck
 EchoMusicApp/Echo-Music
 Edge0-AI/Edge0
@@ -47,7 +50,9 @@ GlassHaven/Haven
 GoogleChrome/android-browser-helper
 GoogleCloudPlatform/scion
 Graylog2/graylog2-server
+GreptimeTeam/greptimedb
 HIllya51/LunaTranslator
+HKUDS/LightRAG
 HandBrake/HandBrake
 HelixDB/helix-foundry
 HolyArrs/HolyArrs
@@ -82,6 +87,7 @@ MetaMask/metamask-mobile
 MetrolistGroup/Metrolist
 Minestom/Minestom
 ModelEngine-Group/nexent
+ModelTC/LightLLM
 MorpheApp/morphe-desktop
 MorpheApp/morphe-manager
 MorpheApp/morphe-patches
@@ -93,6 +99,7 @@ NatronGitHub/Natron
 NiREvil/vless
 NihilDigit/piko
 NousResearch/hermes-agent
+Numbersf/Action-Build
 NuvioMedia/NuvioTV
 OpenAEV-Platform/openaev
 OpenVPN/openvpn
@@ -100,6 +107,7 @@ OpenZeppelin/openzeppelin-contracts
 PipeWire/pipewire
 PostHog/posthog
 PostHog/posthog-foss
+PrefectHQ/fastmcp
 ProdigyV21/ARVIO
 Project-HAMi/HAMi
 Project-N-E-K-O/N.E.K.O
@@ -108,10 +116,12 @@ R0Y00/Xbox2Windows
 RediSearch/RediSearch
 Rockbox/rockbox
 SerenityOS/serenity
+SethRobinson/Patchy
 ShiftHackZ/SDAI-KMP
 Significant-Gravitas/AutoGPT
 Silo-Server/silo-server
 StarRocks/starrocks
+Stirling-Tools/Stirling-PDF
 Stremio/stremio-core
 Supprise0901/TVBox_live
 Swayingleaves/novanova-studio
@@ -123,6 +133,7 @@ UCSLabs/mailcraft
 UsefulSoftwareCo/executor
 WeblateOrg/weblate
 Wei-Shaw/sub2api
+Weiss-UltimateSavior/Tyranor-Next
 WhiteTowerAI/ohmygame
 YouMind-OpenLab/awesome-nano-banana-pro-prompts
 YouROK/TorrServer
@@ -196,6 +207,7 @@ angular/angular
 anomalyco/opencode
 ansible/ansible
 anza-xyz/agave
+aovestdipaperino/tokensave
 apache/camel
 apache/cassandra
 apache/cxf
@@ -214,6 +226,7 @@ apache/opendal
 apache/pinot
 apache/pulsar
 apache/rocketmq
+apache/rocketmq-dashboard
 apache/seata
 apache/shardingsphere
 apache/superset
@@ -302,6 +315,7 @@ danielealbano/android-remote-control-mcp
 dapr/dapr
 dart-lang/sdk
 dataelement/bisheng
+datamodel-code-generator/datamodel-code-generator
 davidondrej/cloudroom
 dbeaver/dbeaver
 debpalash/VoiceStudio
@@ -343,6 +357,7 @@ expressjs/express
 eza-community/eza
 facebook/react
 facebookincubator/muse-gadget-sdk
+failsafe-security/artex
 fastapi/fastapi
 fastify/fastify
 felangel/bloc
@@ -372,14 +387,17 @@ ggml-org/llama.cpp
 gin-gonic/gin
 github/gh-aw
 gmh5225/awesome-game-security
+go-gitea/gitea
 go-kratos/kratos
 go-micro/go-micro
 godotengine/godot
 gofiber/fiber
+gofr-dev/gofr
 goharbor/harbor
 gohugoio/hugo
 google-gemini/gemini-api-cli
 google/adk-go
+google/angle
 google/flutter-desktop-embedding
 google/perfetto
 google/re2j
@@ -405,8 +423,10 @@ hatchet-dev/hatchet
 haveno-dex/haveno
 he-yufeng/CoreCoder
 helidon-io/helidon
+helloworld1/FreeOTPPlus
 helm/helm
 heygen-com/hyperframes
+himdo/Fable-2-Recomp
 horizontalsystems/unstoppable-wallet-android
 horsicq/DIE-engine
 horsicq/XELFViewer
@@ -471,6 +491,7 @@ jesseduffield/lazygit
 jknack/handlebars.java
 jlcodes99/cockpit-tools
 jonataslaw/getx
+joncampbell123/dosbox-x
 jub0t/Concat
 junegunn/fzf
 justjavac/weibo-trending-hot-search
@@ -483,6 +504,7 @@ kestra-io/kestra
 keycloak/keycloak
 kirodotdev/KiroCrew
 kksimp/Mac.apk
+komikku-app/komikku
 kubenetworks/kubevpn
 kubernetes-sigs/controller-runtime
 kubernetes-sigs/kustomize
@@ -492,6 +514,7 @@ kubernetes/minikube
 kubescape/kubescape
 kubevirt/kubevirt
 kunkundi/crossdesk
+kvcache-ai/Mooncake
 lakehq/sail
 langgenius/dify
 laravel/laravel
@@ -513,6 +536,7 @@ ltdrdata/ComfyUI-Impact-Pack
 lucee/Lucee
 lwindolf/liferea
 lynx-family/primjs
+lysine-dev/retrofit
 lyusupov/SoftRF
 mainplane-ai/mainplane
 makecindy/cindy
@@ -533,6 +557,7 @@ metatube-community/metatube-sdk-go
 mickael-kerjean/filestash
 micronaut-projects/micronaut-core
 microsoft/PowerToys
+microsoft/microsoft-ui-xaml
 microsoft/mssql-jdbc
 microsoft/vscode
 microsoft/windows-rs
@@ -605,6 +630,7 @@ objectionary/sodg-maven-plugin
 objectionary/sodg.rs
 objectionary/wpa
 objectionary/xax
+odoo/odoo
 ogham/dog
 okou-ai/okou
 onekey-sec/unblob
@@ -635,6 +661,7 @@ pallets/flask
 paritytech/polkadot-sdk
 pengchujin/aerial-tv
 percona/pmm
+perixtar/Tech-OA-Interview-Questions
 perplexityai/SPACE
 persian-calendar/persian-calendar
 pgjdbc/pgjdbc
@@ -667,7 +694,10 @@ radareorg/radare2
 rails/rails
 rakshasa/libtorrent
 rancher/rancher
+ranxianglei/billion-context
 raullenchai/Rapid-MLX
+rawnaldclark/Stash
+rcourtman/Pulse
 redhat-et/ripwire
 redis/jedis
 redis/redis
@@ -681,12 +711,14 @@ robusta-dev/robusta
 root-project/root
 rrousselGit/riverpod
 runkids/skillshare
+rusefi/rusefi
 s1dashu/quiet-md
 samolego/Canta
 samuelgursky/davinci-resolve-mcp
 saya-ch/dsh-mobile
 sceneview/sceneview
 schemathesis/schemathesis
+scummvm/scummvm
 scylladb/scylladb
 sebadob/rauthy
 sepinf-inc/IPED
@@ -696,11 +728,14 @@ sharkdp/bat
 sharkdp/fd
 shijue-aid/aid-studio
 shirudo-dev/shirudo
+shy3130/tick-stock-panel
 simplexai-labs/linger
 smg-project/smg
 solana-labs/solana
+sonatype/docker-nexus3
 sonic-pi-net/sonic-pi
 sonorahq/sonora
+sorrycc/Mayoi
 sous-labs/songe
 spf13/cobra
 spf13/viper
@@ -720,6 +755,7 @@ storytold/designcraft
 storytold/gridcraft
 storytold/lightcraft
 storytold/photocraft
+storytold/vectorcraft
 storytold/wordcraft
 strapi/strapi
 strimzi/strimzi-kafka-operator
@@ -730,10 +766,14 @@ supabase-community/postgres-language-server
 superdesigndev/treg
 superplanehq/superplane
 sveltejs/svelte
+sysown/proxysql
 systemd/systemd
+t8y2/motty
 tailscale/tailscale-android
 tangency-labs/solidcraft
+taosdata/TDengine
 tdewolff/minify
+techiescamp/cka-certification-guide
 temporalio/temporal
 tempoxyz/tempo
 tensorflow/tensorflow
@@ -751,6 +791,7 @@ tianocore/edk2
 timoncool/YuE2-Studio
 tmux/tmux
 tokio-rs/axum
+tonhowtf/omniget
 torvalds/linux
 traefik/traefik
 trezor/trezor-suite
@@ -770,6 +811,7 @@ videolan/vlc-android
 vitejs/vite
 vitessio/vitess
 vitorpamplona/amethyst
+vllm-project/vllm
 vstorm-co/pydantic-deepagents
 vuejs/core
 vuejs/router
@@ -780,8 +822,12 @@ wazuh/wazuh
 weaviate/weaviate
 web3j/web3j
 webpack/webpack
+wingedpanther/cleanmytv
+wingedpanther/openshelf
 wiredtiger/wiredtiger
+wireshark/wireshark
 wolfSSL/wolfssl
+xMasterX/all-the-plugins
 xchacha20-poly1305/husi
 xen-project/xen
 ximeiorg/Xime
